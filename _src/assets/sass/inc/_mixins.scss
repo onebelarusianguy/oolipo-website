@@ -1,0 +1,219 @@
+// before/after
+@mixin before($pos, $display, $w, $h, $content: '') {
+	content: $content;
+	position: $pos;
+	display: $display;
+	width: $w;
+	height: $h;
+}
+@mixin after($pos, $display, $w, $h, $content: '') {
+	content: $content;
+	position: $pos;
+	display: $display;
+	width: $w;
+	height: $h;
+}
+// opacity + optional background
+@mixin opacity($opacity, $bck: null) {
+	@if ($bck) {
+		background: $bck;
+	}
+	opacity: $opacity;
+}
+// Transparent black
+@mixin black($opacity) {
+	color: rgba(0, 0, 0, $opacity);
+}
+// Transform
+@mixin transform($property) {
+	-webkit-transform: $property;
+	-ms-transform: $property;
+	transform: $property;
+}
+// Transition. Default: $duration all ease 0s
+@mixin transition($dur, $prop: null, $ease: null, $delay: null) {
+	-webkit-transition: $dur $prop $ease $delay;
+	transition: $dur $prop $ease $delay;
+}
+@mixin transition-delay($delay) {
+	-webkit-transition-delay: $delay;
+	transition-delay: $delay;
+}
+// Animation. Default: $duration $name 1 0s ease normal none running
+@mixin animation($dur, $name, $count: null, $delay: null, $ease: null, $direction: alternate, $fill-mode: null, $play-state: null) {
+	@if ($dur==none and $name==none) {
+		-webkit-animation: none;
+		animation: none;
+	}
+	@else {
+		-webkit-animation: $dur $name $count $delay $ease $direction $fill-mode $play-state;
+		animation: $dur $name $count $delay $ease $direction $fill-mode $play-state;
+	}
+}
+@mixin animation-delay($delay) {
+	-webkit-animation-delay: $delay;
+	animation-delay: $delay;
+}
+@mixin animation-fill-mode($fill-mode) {
+	-webkit-animation-fill-mode: $fill-mode;
+	animation-fill-mode: $fill-mode;
+}
+// Gradient
+@mixin gradient($color1, $color2) {
+	background-image: -webkit-gradient(linear, left top, left bottom, from($color1), to($color2));
+	background-image: -webkit-linear-gradient($color1, $color2);
+	background-image: linear-gradient($color1, $color2);
+}
+//placeholder
+@mixin placeholder() {
+	::-webkit-input-placeholder,
+	::-moz-placeholder,
+	:-ms-input-placeholder {
+		@content;
+	}
+}
+// Media mixins
+@mixin media($screen) {
+	@if ($screen==xxs) {
+		@media (max-width: 480px) {
+			@content;
+		}
+	}
+	@if ($screen==xs) {
+		@media (max-width: 767px) {
+			@content;
+		}
+	}
+	@if ($screen==sm) {
+		@media (min-width: 768px) {
+			@content;
+		}
+	}
+	@if ($screen==md) {
+		@media (min-width: 1024px) {
+			@content;
+		}
+	}
+	@if ($screen==lg) {
+		@media (min-width: 1200px) {
+			@content;
+		}
+	}
+	@if ($screen==xlg) {
+		@media (max-width: 2048px) {
+			@content;
+		}
+	}
+}
+// Triangles. Direction: up, right, down, left
+//@mixin triangle($direction, $width, $height, $color, $background-color: transparent) {
+//	@include size(0);
+//	@mixin border-y {
+//		border-right: ($width / 2) solid $background-color;
+//		border-left: ($width / 2) solid $background-color;
+//	}
+//	@mixin border-x {
+//		border-top: ($height / 2) solid $background-color;
+//		border-bottom: ($height / 2) solid $background-color;
+//	}
+//	@if $direction==up {
+//		@include border-y();
+//		border-top: 0;
+//		border-bottom: $height solid $color;
+//	}
+//	@if $direction==right {
+//		@include border-x();
+//		border-right: 0;
+//		border-left: $width solid $color;
+//	}
+//	@if $direction==down {
+//		@include border-y;
+//		border-top: $height solid $color;
+//		border-bottom: 0;
+//	}
+//	@if $direction==left {
+//		@include border-x;
+//		border-right: $width solid $color;
+//		border-left: 0;
+//	}
+//}
+
+@function strip-units($number) {
+	@return $number / ($number * 0 + 1);
+}
+
+@function vpmin($pxsize) {
+	$brekapoint: 50; // px
+	$pxsize: strip-units($pxsize);
+	
+	@if ($pxsize >= 50) {$multiplier: 1.0476;}
+	@if ($pxsize <= 42) {$multiplier: 2.3571;} //9.9vmin / 42px // (32px)
+	@if ($pxsize <= 36) {$multiplier: 1.9166;} //6.9vmin / 36px // (28px)
+	
+	
+	@if ($pxsize <= 16) {$multiplier: 2.9696;} //4.9 / 1.65
+	@if ($pxsize <= 14) {$multiplier: 2.8859;}  //4.3 / 1.49
+	@if ($pxsize <= 12) {$multiplier: 2.4000;} //3.2 / 1.25
+	
+	//$perc: $pxsize * 100 / $brekapoint;
+	$multiplier: $pxsize + $pxsize * (1 - $pxsize / 100);
+	
+	//$value: $multiplier2 / 10 * $multiplier;
+	$value: $pxsize / 10 * $multiplier;
+	
+	@return $value + vmin;
+}
+
+@function em($pixels, $context: 16) {
+	@if (unitless($pixels)) {
+		$pixels: $pixels * 1px;
+	}
+	@if (unitless($context)) {
+		$context: $context * 1px;
+	}
+	@return $pixels / $context * $scale * 1em;
+}
+
+
+@mixin viewport-unit($property, $value) {
+  #{$property}: $value;
+
+  $unit: unit($value);
+
+  @if (index((vw, vh, vmin, vmax), $unit) != null) {
+    $devices: (
+      (768px, 1024px), // iPad (all versions)
+      (320px, 480px),  // iPhone 4
+      (320px, 568px)   // iPhone 5, 5C, 5S
+    );
+
+    @each $device in $devices {
+      $device-width: nth($device, 1);
+      $device-height: nth($device, 2);
+
+      $device-query: "only screen and (-webkit-min-device-pixel-ratio: 1)";
+      $device-query: "#{$device-query} and (device-width: #{$device-width})";
+      $device-query: "#{$device-query} and (device-height: #{$device-height})";
+
+      $percent: $value / ($value * 0 + 1); // see https://github.com/sass/sass/issues/533
+
+      $percent-width: $device-width * $percent / 100;
+      $percent-height: $device-height * $percent / 100;
+
+      @if ($unit == vmin or $unit == vmax) {
+        @media #{$device-query} {
+          #{$property}: if($unit == vmin, $percent-width, $percent-height);
+        }
+      }
+      @else {
+        @media #{$device-query} and (orientation: portrait) {
+          #{$property}: if($unit == vw, $percent-width, $percent-height);
+        }
+
+        @media #{$device-query} and (orientation: landscape) {
+          #{$property}: if($unit == vw, $percent-height, $percent-width);
+        }
+      }
+    }
+  }
+}

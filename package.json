@@ -1,0 +1,36 @@
+{
+  "name": "oolipo",
+  "version": "1.0.0",
+  "description": "description",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "browser-sync": "^2.14.0",
+    "grunt-csstoc": "^0.2.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-connect-php": "^0.0.8",
+    "gulp-filter": "^4.0.0",
+    "gulp-grunt": "^0.5.4",
+    "gulp-header": "^1.8.7",
+    "gulp-html-tag-include": "^1.0.1",
+    "gulp-imagemin": "^3.0.1",
+    "gulp-jsbeautifier": "^2.0.3",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-plumber": "^1.1.0",
+    "gulp-remove-code": "^1.0.2",
+    "grunt": "^1.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-sass": "^2.3.2",
+    "gulp-uglify": "^1.5.4",
+    "gulp-zip": "^3.2.0",
+    "imagemin-jpeg-recompress": "^5.1.0",
+    "imagemin-pngquant": "^5.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pavel Marhaunichy",
+  "license": "ISC"
+}

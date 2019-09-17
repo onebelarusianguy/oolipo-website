@@ -1,0 +1,38 @@
+@include keyframes(hinge) {
+  0% {
+    animation-timing-function: ease-in-out;
+    @include transform(rotate3d(0));
+    @include transform-origin(top left);
+  }
+  20%, 60% {
+    animation-timing-function: ease-in-out;
+    @include transform(rotate3d(0, 0, 1, 80deg));
+    @include transform-origin(top left);
+  }
+  40% {
+    animation-timing-function: ease-in-out;
+    @include transform(rotate3d(0, 0, 1, 60deg));
+    @include transform-origin(top left);
+  }
+  80% {
+    opacity: 1;
+    animation-timing-function: ease-in-out;
+    @include transform(rotate3d(0, 0, 1, 70deg) translate3d(0, 0, 0));
+    @include transform-origin(top left);
+  }
+  100% {
+	animation-timing-function: ease-in-out;
+    @include transform(rotate3d(0, 0, 1, 75deg) translate3d(0, 0, 0));
+    @include transform-origin(top left);
+  }
+}
+
+@mixin hinge($count: $countDefault, $duration: $durationDefault, $delay: $delayDefault, $function: $functionDefault, $fill: $fillDefault, $visibility: $visibilityDefault) {
+  @include animation-name(hinge);
+  @include count($count);
+  @include duration($duration);
+  @include delay($delay);
+  @include function($function);
+  @include fill-mode($fill);
+  @include visibility($visibility);
+}

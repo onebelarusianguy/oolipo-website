@@ -1,0 +1,27 @@
+//Text Overflow ...
+%textov {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+//clearfix
+%cf {
+	content: '';
+	display: block;
+	clear: both;
+}
+//pos center absolute
+%abs {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+}
+%line-bottom {
+	border-bottom: 1px solid #d0d0d0;
+}
+%line-top {
+	border-top: 1px solid #d0d0d0;
+}

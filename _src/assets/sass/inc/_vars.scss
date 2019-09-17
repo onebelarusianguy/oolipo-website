@@ -1,0 +1,28 @@
+//dimensions
+$scale: 1;
+
+$content: 1024px;
+$content2: 944px;
+$content3: 784px;
+$content4: 624px;
+
+$headerHeight: 70px * $scale;
+$headerMobileHeight: 60px * $scale;
+$toggleSize: 60px * $scale;
+$footerHeight: 100px;
+$formWidth: 620px;
+
+//fullpage
+$fullpageSlidingTime: 1.2s; //should be euqal to JS time ('scrollingSpeed')
+
+
+//slider
+$storyworldSliderHieght: 408px;
+
+//colors
+$main: #19d1c6;
+$white: #fff;
+$black: #000;
+//fonts
+$font1: 'acumin-pro-semi-condensed', 'Helvetica', sans-serif;
+$font2: 'adriane', 'Helvetica', sans-serif;

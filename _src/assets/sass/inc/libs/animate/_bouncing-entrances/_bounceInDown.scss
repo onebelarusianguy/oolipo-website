@@ -1,0 +1,26 @@
+@include keyframes(bounceInDown) {
+  0% {
+    opacity: 0;
+    @include transform(translate3d(0, -2000px, 0));
+    }
+  60% {
+    opacity: 1;
+    @include transform(translate3d(0, 30px, 0));
+  }
+  80% {
+    @include transform(translate3d(0, -10px, 0));
+  }
+  100% {
+    @include transform(translate3d(0, 0, 0));
+  }
+}
+
+@mixin bounceInDown($count: $countDefault, $duration: $durationDefault, $delay: $delayDefault, $function: $functionDefault, $fill: $fillDefault, $visibility: $visibilityDefault) {
+  @include animation-name(bounceInDown);
+  @include count($count);
+  @include duration($duration);
+  @include delay($delay);
+  @include function($function);
+  @include fill-mode($fill);
+  @include visibility($visibility);
+}

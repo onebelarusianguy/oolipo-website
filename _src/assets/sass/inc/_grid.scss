@@ -1,0 +1,208 @@
+/********************************
+@ GRID
+********************************/
+
+$column-count: 12 !default;
+$gutter: 15px !default;
+$font-reset: $font1 !default;
+$max-container: 1170px !default;
+$xsmall: 767px !default;
+$small: 768px !default;
+$medium: 992px !default;
+$large: 1200px !default;
+.container {
+	position: relative;
+	max-width: $max-container;
+	margin-right: auto;
+	margin-left: auto;
+	&-fluid {
+		position: relative;
+		padding-left: 30px;
+		padding-right: 30px;
+		@media (min-width: $large) {
+			padding-left: 100px;
+			padding-right: 100px;
+		}
+	}
+}
+[class*="col-"] {
+	font-family: $font-reset;
+	letter-spacing: normal;
+	display: inline-block;
+	vertical-align: top;
+	padding-left: $gutter;
+	padding-right: $gutter;
+	padding-bottom: 2 * $gutter;
+}
+.row {
+	font-family: monospace;
+	letter-spacing: -.65em;
+	@media (min-width: $large) {
+		margin-left: -$gutter;
+		margin-right: -$gutter;
+	}
+}
+@function column-width ($i) {
+	@return ($i / $column-count) * 100%;
+}
+@media (max-width: $xsmall) {
+	@for $n from 1 through $column-count {
+		.col-xs-#{$n} {
+			width: column-width($n);
+		}
+	}
+	//+ 5 columns
+	.col-xs-5col {
+		width: 20%;
+	}
+}
+@media (min-width: $small) {
+	@for $n from 1 through $column-count {
+		.col-sm-#{$n} {
+			width: column-width($n);
+		}
+	}
+	//+ 5 columns
+	.col-sm-5col {
+		width: 20%;
+	}
+}
+@media (min-width: $medium) {
+	@for $n from 1 through $column-count {
+		.col-md-#{$n} {
+			width: column-width($n);
+		}
+	}
+	//+ 5 columns
+	.col-md-5col {
+		width: 20%;
+	}
+}
+@media (min-width: $large) {
+	@for $n from 1 through $column-count {
+		.col-lg-#{$n} {
+			width: column-width($n);
+		}
+	}
+	//+ 5 columns
+	.col-lg-5col {
+		width: 20%;
+	}
+}
+
+
+
+/********************************
+@    OFFSETS
+********************************/
+@media (max-width: $xsmall) {
+	@for $n from 1 through $column-count - 1 {
+		.col-xs-offset-left-#{$n} {
+			margin-left: column-width($n);
+		}
+		.col-xs-offset-right-#{$n} {
+			margin-right: column-width($n);
+		}
+	}
+}
+@media (min-width: $small) {
+	@for $n from 1 through $column-count - 1 {
+		.col-sm-offset-left-#{$n} {
+			margin-left: column-width($n);
+		}
+		.col-sm-offset-right-#{$n} {
+			margin-right: column-width($n);
+		}
+	}
+}
+@media (min-width: $medium) {
+	@for $n from 1 through $column-count - 1 {
+		.col-md-offset-left-#{$n} {
+			margin-left: column-width($n);
+		}
+		.col-md-offset-right-#{$n} {
+			margin-right: column-width($n);
+		}
+	}
+}
+@media (min-width: $large) {
+	@for $n from 1 through $column-count - 1 {
+		.col-lg-offset-left-#{$n} {
+			margin-left: column-width($n);
+		}
+		.col-lg-offset-right-#{$n} {
+			margin-right: column-width($n);
+		}
+	}
+}
+
+/********************************
+@    RESPONSIVE HIDDEN
+********************************/
+@media (max-width: $xsmall) {
+	.hidden-xs {
+		display: none !important;
+	}
+}
+@media (min-width: $small) and (max-width: $medium - 1) {
+	.hidden-sm {
+		display: none !important;
+	}
+}
+@media (min-width: $medium) and (max-width: $large - 1) {
+	.hidden-md {
+		display: none !important;
+	}
+}
+@media (min-width: $large) {
+	.hidden-lg {
+		display: none !important;
+	}
+}
+
+/********************************
+@    HELPER CLASSES
+********************************/
+.align {
+	&-left {
+		text-align: left !important;
+	}
+	&-right {
+		text-align: right !important;
+	}
+	&-center {
+		text-align: center !important;
+	}
+	&-middle {
+		vertical-align: middle !important;
+	}
+	&-top {
+		vertical-align: top !important;
+	}
+	&-bottom {
+		vertical-align: bottom !important;
+	}
+}
+$sizes: (0, 5, 10, 15, 20, 25, 30, 50);
+$sides: ('t': 'top', 'r': 'right', 'b': 'bottom', 'l': 'left');
+@each $key, $val in $sides {
+	@each $size in $sizes {
+		.p#{$key}-#{$size} {
+			padding-#{$val}: unquote($size + 'px') !important;
+		}
+	}
+}
+@each $key, $val in $sides {
+	@each $size in $sizes {
+		.m#{$key}-#{$size} {
+			margin-#{$val}: unquote($size + 'px') !important;
+		}
+	}
+}
+.no-padding {
+	padding: 0 !important;
+}
+.no-margin {
+	margin: 0 !important;
+}
+

@@ -1,0 +1,37 @@
+@include keyframes(flip) {
+	0% {
+        @include transform(perspective(400px) rotate3d(0,1,0,-360deg));
+        animation-timing-function: ease-out
+    }
+
+    40% {
+        @include transform(perspective(400px) translate3d(0,0,150px) rotate3d(0,1,0,-190deg));
+        animation-timing-function: ease-out
+    }
+
+    50% {
+        @include transform(perspective(400px) translate3d(0,0,150px) rotate3d(0,1,0,-170deg));
+        animation-timing-function: ease-in
+    }
+
+    80% {
+        @include transform(perspective(400px) scale3d(.95,.95,.95));
+        animation-timing-function: ease-in
+    }
+
+    100% {
+        @include transform(perspective(400px));
+        animation-timing-function: ease-in
+    }
+}
+
+@mixin flip($count: $countDefault, $duration: $durationDefault, $delay: $delayDefault, $function: $functionDefault, $fill: $fillDefault, $visibility: $visibilityDefault) {
+  @include transform-style(preserve-3d);
+  @include animation-name(flip);
+  @include count($count);
+  @include duration($duration);
+  @include delay($delay);
+  @include function($function);
+  @include fill-mode($fill);
+  @include visibility($visibility);
+}
